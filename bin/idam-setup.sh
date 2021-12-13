@@ -19,7 +19,7 @@ AM_REDIRECTS=("http://am-role-assignment-service:4096/oauth2redirect")
 AM_REDIRECTS_STR=$(printf "\"%s\"," "${AM_REDIRECTS[@]}")
 AM_REDIRECT_URI="[${AM_REDIRECTS_STR%?}]"
 
-DA_CLIENT_ID="da"
+DA_CLIENT_ID="da-cos-api"
 XUI_CLIENT_ID="xuiwebapp"
 
 DA_CLIENT_SECRET=${OAUTH2_CLIENT_SECRET}

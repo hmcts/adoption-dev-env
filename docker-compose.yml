@@ -41,7 +41,7 @@ services:
       DEFINITION_STORE_DB_PASSWORD: "${DB_PASSWORD}"
       DEFINITION_STORE_DB_USE_SSL: "false"
       DEFINITION_STORE_IDAM_KEY:
-      DEFINITION_STORE_S2S_AUTHORISED_SERVICES: ccd_data,ccd_gw,ccd_admin,divorce_frontend
+      DEFINITION_STORE_S2S_AUTHORISED_SERVICES: ccd_data,ccd_gw,ccd_admin,da_cos_api
       USER_PROFILE_HOST: http://ccd-user-profile-api:4453
       IDAM_USER_URL: http://idam-api:5000
       IDAM_S2S_URL: http://rpe-service-auth-provider-aat.service.core-compute-aat.internal
@@ -66,7 +66,7 @@ services:
       DATA_STORE_DB_PASSWORD: "${DB_PASSWORD}"
       DATA_STORE_DB_USE_SSL: "false"
       DATA_STORE_IDAM_KEY:
-      DATA_STORE_S2S_AUTHORISED_SERVICES: ccd_gw,fpl_case_service,ccd_data,ccd_ps,divorce_frontend,payment-api,xui_webapp,da_cos_api,ccd_case_document_am_api,am_role_assignment_service
+      DATA_STORE_S2S_AUTHORISED_SERVICES: ccd_gw,fpl_case_service,ccd_data,ccd_ps,da_cos_api,payment-api,xui_webapp,da_cos_api,ccd_case_document_am_api,am_role_assignment_service
       CCD_S2S_AUTHORISED_SERVICES_CASE_USER_ROLES: da_cos_api
       CCD_DM_DOMAIN: http://dm-store:8080
       DEFINITION_STORE_HOST: http://ccd-definition-store-api:4451
@@ -186,7 +186,7 @@ services:
       FEATURE_APP_INSIGHTS_ENABLED: "true"
       FEATURE_SECURE_COOKIE_ENABLED: "false"
       FEATURE_REDIS_ENABLED: "false"
-      JURISDICTIONS: DIVORCE
+      JURISDICTIONS: DOMESTICABUSE
       MICROSERVICE: xui_webapp
       PROTOCOL: http
       XUI_ENV: local
@@ -390,7 +390,7 @@ services:
       LD_SDK_KEY: "${AM_LD_SDK_KEY}"
       ROLE_ASSIGNMENT_IDAM_KEY:
       ROLE_ASSIGNMENT_TOKEN_SECRET:
-      ROLE_ASSIGNMENT_S2S_AUTHORISED_SERVICES: ccd_gw,am_role_assignment_service,am_org_role_mapping_service,wa_task_management_api,xui_webapp,ccd_data
+      ROLE_ASSIGNMENT_S2S_AUTHORISED_SERVICES: ccd_gw,am_role_assignment_service,am_org_role_mapping_service,wa_task_management_api,xui_webapp,ccd_data,da_cos_api
       IDAM_USER_URL: http://idam-api:5000
       IDAM_S2S_URL: http://rpe-service-auth-provider-aat.service.core-compute-aat.internal
       OPEN_ID_API_BASE_URI: http://idam-api:5000/o

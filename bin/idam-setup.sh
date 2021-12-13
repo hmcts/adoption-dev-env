@@ -25,11 +25,11 @@ XUI_CLIENT_ID="xuiwebapp"
 DA_CLIENT_SECRET=${OAUTH2_CLIENT_SECRET}
 XUI_CLIENT_SECRET=${OAUTH2_CLIENT_SECRET}
 
-ROLES_ARR=("ccd-import" "caseworker-da" "caseworker" "caseworker-da-courtadmin" "caseworker-da-systemupdate" "caseworker-da-superuser" "caseworker-da-la" "caseworker-da-judge" "caseworker-da-solicitor")
+ROLES_ARR=("ccd-import" "caseworker-domesticabuse" "caseworker" "caseworker-domesticabuse-courtadmin" "caseworker-domesticabuse-systemupdate" "caseworker-domesticabuse-superuser" "caseworker-domesticabuse-la" "caseworker-domesticabuse-judge" "caseworker-domesticabuse-solicitor")
 ROLES_STR=$(printf "\"%s\"," "${ROLES_ARR[@]}")
 ROLES="[${ROLES_STR%?}]"
 
-XUI_ROLES_ARR=("XUI-Admin" "XUI-SuperUser" "caseworker" "caseworker-da" "caseworker-da-courtadmin" "caseworker-da-systemupdate" "caseworker-da-superuser" "caseworker-da-la" "caseworker-da-judge" "caseworker-da-solicitor")
+XUI_ROLES_ARR=("XUI-Admin" "XUI-SuperUser" "caseworker" "caseworker-domesticabuse" "caseworker-domesticabuse-courtadmin" "caseworker-domesticabuse-systemupdate" "caseworker-domesticabuse-superuser" "caseworker-domesticabuse-la" "caseworker-domesticabuse-judge" "caseworker-domesticabuse-solicitor")
 XUI_ROLES_STR=$(printf "\"%s\"," "${XUI_ROLES_ARR[@]}")
 XUI_ROLES="[${XUI_ROLES_STR%?}]"
 
@@ -77,10 +77,10 @@ echo "Setup xui client roles"
 curl -s -o /dev/null -XPUT "${HEADERS[@]}" ${IDAM_URI}/services/${XUI_CLIENT_ID}/roles -d "${XUI_ROLES}"
 
 echo "Creating idam users"
-./bin/idam-create-user.sh caseworker,caseworker-divorce,caseworker-divorce-courtadmin_beta,caseworker-divorce-systemupdate,caseworker-divorce-courtadmin,caseworker-divorce-bulkscan,caseworker-divorce-superuser,caseworker-divorce-courtadmin-la $IDAM_CASEWORKER_USERNAME $IDAM_CASEWORKER_PASSWORD caseworker
-./bin/idam-create-user.sh caseworker,caseworker-divorce,caseworker-divorce-courtadmin_beta $IDAM_TEST_CASEWORKER_USERNAME $IDAM_TEST_CASEWORKER_PASSWORD caseworker
-./bin/idam-create-user.sh caseworker,caseworker-divorce,caseworker-divorce-solicitor,caseworker-divorce-superuser $IDAM_TEST_SOLICITOR_USERNAME $IDAM_TEST_SOLICITOR_PASSWORD caseworker
+./bin/idam-create-user.sh caseworker,caseworker-domesticabuse,caseworker-domesticabuse-courtadmin_beta,caseworker-domesticabuse-systemupdate,caseworker-domesticabuse-courtadmin,caseworker-domesticabuse-bulkscan,caseworker-domesticabuse-superuser,caseworker-domesticabuse-courtadmin-la $IDAM_CASEWORKER_USERNAME $IDAM_CASEWORKER_PASSWORD caseworker
+./bin/idam-create-user.sh caseworker,caseworker-domesticabuse,caseworker-domesticabuse-courtadmin_beta $IDAM_TEST_CASEWORKER_USERNAME $IDAM_TEST_CASEWORKER_PASSWORD caseworker
+./bin/idam-create-user.sh caseworker,caseworker-domesticabuse,caseworker-domesticabuse-solicitor,caseworker-domesticabuse-superuser $IDAM_TEST_SOLICITOR_USERNAME $IDAM_TEST_SOLICITOR_PASSWORD caseworker
 ./bin/idam-create-user.sh ccd-import $DEFINITION_IMPORTER_USERNAME $DEFINITION_IMPORTER_PASSWORD Default
-./bin/idam-create-user.sh caseworker,caseworker-divorce,caseworker-divorce-systemupdate $IDAM_SYSTEM_UPDATE_USERNAME $IDAM_SYSTEM_UPDATE_PASSWORD caseworker
+./bin/idam-create-user.sh caseworker,caseworker-domesticabuse,caseworker-domesticabuse-systemupdate $IDAM_SYSTEM_UPDATE_USERNAME $IDAM_SYSTEM_UPDATE_PASSWORD caseworker
 ./bin/idam-create-user.sh caseworker $CCD_SYSTEM_UPDATE_USERNAME $CCD_SYSTEM_UPDATE_PASSWORD caseworker
 echo "Idam setup complete"

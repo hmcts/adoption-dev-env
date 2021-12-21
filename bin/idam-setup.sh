@@ -19,27 +19,27 @@ AM_REDIRECTS=("http://am-role-assignment-service:4096/oauth2redirect")
 AM_REDIRECTS_STR=$(printf "\"%s\"," "${AM_REDIRECTS[@]}")
 AM_REDIRECT_URI="[${AM_REDIRECTS_STR%?}]"
 
-DA_CLIENT_ID="da-cos-api"
+ADOPTION_CLIENT_ID="adoption-cos-api"
 XUI_CLIENT_ID="xuiwebapp"
 
-DA_CLIENT_SECRET=${OAUTH2_CLIENT_SECRET}
+ADOPTION_CLIENT_SECRET=${OAUTH2_CLIENT_SECRET}
 XUI_CLIENT_SECRET=${OAUTH2_CLIENT_SECRET}
 
-ROLES_ARR=("ccd-import" "caseworker-domesticabuse" "caseworker" "caseworker-domesticabuse-courtadmin" "caseworker-domesticabuse-systemupdate" "caseworker-domesticabuse-superuser" "caseworker-domesticabuse-la" "caseworker-domesticabuse-judge" "caseworker-domesticabuse-solicitor")
+ROLES_ARR=("ccd-import" "caseworker-adoption" "caseworker" "caseworker-adoption-courtadmin" "caseworker-adoption-systemupdate" "caseworker-adoption-superuser" "caseworker-adoption-la" "caseworker-adoption-judge" "caseworker-adoption-solicitor")
 ROLES_STR=$(printf "\"%s\"," "${ROLES_ARR[@]}")
 ROLES="[${ROLES_STR%?}]"
 
-XUI_ROLES_ARR=("XUI-Admin" "XUI-SuperUser" "caseworker" "caseworker-domesticabuse" "caseworker-domesticabuse-courtadmin" "caseworker-domesticabuse-systemupdate" "caseworker-domesticabuse-superuser" "caseworker-domesticabuse-la" "caseworker-domesticabuse-judge" "caseworker-domesticabuse-solicitor")
+XUI_ROLES_ARR=("XUI-Admin" "XUI-SuperUser" "caseworker" "caseworker-adoption" "caseworker-adoption-courtadmin" "caseworker-adoption-systemupdate" "caseworker-adoption-superuser" "caseworker-adoption-la" "caseworker-adoption-judge" "caseworker-adoption-solicitor")
 XUI_ROLES_STR=$(printf "\"%s\"," "${XUI_ROLES_ARR[@]}")
 XUI_ROLES="[${XUI_ROLES_STR%?}]"
 
 AUTH_TOKEN=$(curl -s -H 'Content-Type: application/x-www-form-urlencoded' -XPOST "${IDAM_URI}/loginUser?username=idamOwner@hmcts.net&password=Ref0rmIsFun" | docker run --rm --interactive stedolan/jq -r .api_auth_token)
 HEADERS=(-H "Authorization: AdminApiAuthToken ${AUTH_TOKEN}" -H "Content-Type: application/json")
 
-echo "Setup domestic abuse client"
+echo "Setup adoption client"
 # Create a client
 curl -s -o /dev/null -XPOST "${HEADERS[@]}" ${IDAM_URI}/services \
- -d '{ "activationRedirectUrl": "", "allowedRoles": '"${ROLES}"', "description": "'${DA_CLIENT_ID}'", "label": "'${DA_CLIENT_ID}'", "oauth2ClientId": "'${DA_CLIENT_ID}'", "oauth2ClientSecret": "'${DA_CLIENT_SECRET}'", "oauth2RedirectUris": '${REDIRECT_URI}', "oauth2Scope": "openid profile roles", "onboardingEndpoint": "string", "onboardingRoles": '"${ROLES}"', "selfRegistrationAllowed": true}'
+ -d '{ "activationRedirectUrl": "", "allowedRoles": '"${ROLES}"', "description": "'${ADOPTION_CLIENT_ID}'", "label": "'${ADOPTION_CLIENT_ID}'", "oauth2ClientId": "'${ADOPTION_CLIENT_ID}'", "oauth2ClientSecret": "'${ADOPTION_CLIENT_SECRET}'", "oauth2RedirectUris": '${REDIRECT_URI}', "oauth2Scope": "openid profile roles", "onboardingEndpoint": "string", "onboardingRoles": '"${ROLES}"', "selfRegistrationAllowed": true}'
 
 echo "Setup xui client"
 # Create a client
@@ -54,7 +54,7 @@ echo "Setup access management client"
 curl -s -o /dev/null -XPOST "${HEADERS[@]}" ${IDAM_URI}/services \
  -d '{ "activationRedirectUrl": "", "allowedRoles": '"${ROLES}"', "description": "am_role_assignment", "label": "am_role_assignment", "oauth2ClientId": "am_role_assignment", "oauth2ClientSecret": "am_role_assignment_secret", "oauth2RedirectUris": '${AM_REDIRECT_URI}', "oauth2Scope": "profile openid roles search-user", "onboardingEndpoint": "string", "onboardingRoles": '"${ROLES}"', "selfRegistrationAllowed": true}'
 
-echo "Setup domestic abuse roles"
+echo "Setup adoption roles"
 # Create roles in idam
 for role in "${ROLES_ARR[@]}"; do
   curl -s -o /dev/null -XPOST ${IDAM_URI}/roles "${HEADERS[@]}" \
@@ -68,19 +68,19 @@ for role in "${XUI_ROLES_ARR[@]}"; do
     -d '{"id": "'${role}'","name": "'${role}'","description": "'${role}'","assignableRoles": [],"conflictingRoles": []}'
 done
 
-echo "Setup doemstic abuse client roles"
+echo "Setup adoption client roles"
 # Assign all the roles to the client
-curl -s -o /dev/null -XPUT "${HEADERS[@]}" ${IDAM_URI}/services/${DA_CLIENT_ID}/roles -d "${ROLES}"
+curl -s -o /dev/null -XPUT "${HEADERS[@]}" ${IDAM_URI}/services/${ADOPTION_CLIENT_ID}/roles -d "${ROLES}"
 
 echo "Setup xui client roles"
 # Assign all the roles to the client
 curl -s -o /dev/null -XPUT "${HEADERS[@]}" ${IDAM_URI}/services/${XUI_CLIENT_ID}/roles -d "${XUI_ROLES}"
 
 echo "Creating idam users"
-./bin/idam-create-user.sh caseworker,caseworker-domesticabuse,caseworker-domesticabuse-courtadmin_beta,caseworker-domesticabuse-systemupdate,caseworker-domesticabuse-courtadmin,caseworker-domesticabuse-bulkscan,caseworker-domesticabuse-superuser,caseworker-domesticabuse-courtadmin-la $IDAM_CASEWORKER_USERNAME $IDAM_CASEWORKER_PASSWORD caseworker
-./bin/idam-create-user.sh caseworker,caseworker-domesticabuse,caseworker-domesticabuse-courtadmin_beta $IDAM_TEST_CASEWORKER_USERNAME $IDAM_TEST_CASEWORKER_PASSWORD caseworker
-./bin/idam-create-user.sh caseworker,caseworker-domesticabuse,caseworker-domesticabuse-solicitor,caseworker-domesticabuse-superuser $IDAM_TEST_SOLICITOR_USERNAME $IDAM_TEST_SOLICITOR_PASSWORD caseworker
+./bin/idam-create-user.sh caseworker,caseworker-adoption,caseworker-adoption-courtadmin_beta,caseworker-adoption-systemupdate,caseworker-adoption-courtadmin,caseworker-adoption-bulkscan,caseworker-adoption-superuser,caseworker-adoption-courtadmin-la $IDAM_CASEWORKER_USERNAME $IDAM_CASEWORKER_PASSWORD caseworker
+./bin/idam-create-user.sh caseworker,caseworker-adoption,caseworker-adoption-courtadmin_beta $IDAM_TEST_CASEWORKER_USERNAME $IDAM_TEST_CASEWORKER_PASSWORD caseworker
+./bin/idam-create-user.sh caseworker,caseworker-adoption,caseworker-adoption-solicitor,caseworker-adoption-superuser $IDAM_TEST_SOLICITOR_USERNAME $IDAM_TEST_SOLICITOR_PASSWORD caseworker
 ./bin/idam-create-user.sh ccd-import $DEFINITION_IMPORTER_USERNAME $DEFINITION_IMPORTER_PASSWORD Default
-./bin/idam-create-user.sh caseworker,caseworker-domesticabuse,caseworker-domesticabuse-systemupdate $IDAM_SYSTEM_UPDATE_USERNAME $IDAM_SYSTEM_UPDATE_PASSWORD caseworker
+./bin/idam-create-user.sh caseworker,caseworker-adoption,caseworker-adoption-systemupdate $IDAM_SYSTEM_UPDATE_USERNAME $IDAM_SYSTEM_UPDATE_PASSWORD caseworker
 ./bin/idam-create-user.sh caseworker $CCD_SYSTEM_UPDATE_USERNAME $CCD_SYSTEM_UPDATE_PASSWORD caseworker
 echo "Idam setup complete"

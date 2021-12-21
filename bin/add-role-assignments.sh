@@ -13,7 +13,7 @@ jq -c '(.[])' ${dir}/utils/am-role-assignments.json | while read user; do
   override=$(jq -r '.overrideAll' <<< $user)
   if [ $override == 'true' ]; then
     echo "Removing all existing role assignments for user ${IDAM_SYSTEM_UPDATE_USERNAME}"
-    psql -h localhost -p 5050 -d role_assignment -U da -c "DELETE FROM role_assignment WHERE actor_id = '${IDAM_SYSTEM_UPDATE_USERNAME}'" -q
+    psql -h localhost -p 5050 -d role_assignment -U adoption -c "DELETE FROM role_assignment WHERE actor_id = '${IDAM_SYSTEM_UPDATE_USERNAME}'" -q
   fi
 
   jq -c '(.roleAssignments[])' <<< $user | while read assignment; do

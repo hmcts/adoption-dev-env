@@ -41,7 +41,7 @@ services:
       DEFINITION_STORE_DB_PASSWORD: "${DB_PASSWORD}"
       DEFINITION_STORE_DB_USE_SSL: "false"
       DEFINITION_STORE_IDAM_KEY:
-      DEFINITION_STORE_S2S_AUTHORISED_SERVICES: ccd_data,ccd_gw,ccd_admin,da_cos_api
+      DEFINITION_STORE_S2S_AUTHORISED_SERVICES: ccd_data,ccd_gw,ccd_admin,adoption_cos_api
       USER_PROFILE_HOST: http://ccd-user-profile-api:4453
       IDAM_USER_URL: http://idam-api:5000
       IDAM_S2S_URL: http://rpe-service-auth-provider-aat.service.core-compute-aat.internal
@@ -66,8 +66,8 @@ services:
       DATA_STORE_DB_PASSWORD: "${DB_PASSWORD}"
       DATA_STORE_DB_USE_SSL: "false"
       DATA_STORE_IDAM_KEY:
-      DATA_STORE_S2S_AUTHORISED_SERVICES: ccd_gw,fpl_case_service,ccd_data,ccd_ps,payment-api,xui_webapp,da_cos_api,ccd_case_document_am_api,am_role_assignment_service
-      CCD_S2S_AUTHORISED_SERVICES_CASE_USER_ROLES: da_cos_api
+      DATA_STORE_S2S_AUTHORISED_SERVICES: ccd_gw,fpl_case_service,ccd_data,ccd_ps,payment-api,xui_webapp,adoption_cos_api,ccd_case_document_am_api,am_role_assignment_service
+      CCD_S2S_AUTHORISED_SERVICES_CASE_USER_ROLES: adoption_cos_api
       CCD_DM_DOMAIN: http://dm-store:8080
       DEFINITION_STORE_HOST: http://ccd-definition-store-api:4451
       USER_PROFILE_HOST: http://ccd-user-profile-api:4453
@@ -307,10 +307,10 @@ services:
     depends_on:
       - idam-api
 
-  da-cos-api:
-    container_name: da-cos-api
+  adoption-cos-api:
+    container_name: adoption-cos-api
     build:
-      context: ./da-cos-api/
+      context: ./adoption-cos-api/
     environment:
       S2S_URL: http://rpe-service-auth-provider-aat.service.core-compute-aat.internal
       S2S_SECRET: "${S2S_SECRET}"
@@ -330,7 +330,7 @@ services:
       - S2S_BASE_URI=http://rpe-service-auth-provider-aat.service.core-compute-aat.internal
       - DM_STORE_APP_URL=http://dm-store:8080
       - REFORM_ENVIRONMENT=local
-      - S2S_NAMES_WHITELIST=em_api,em_gw,ccd_gw,ccd_data,sscs,dg_tmpl_mgmt,dg_docassembly,dm-store,cmc,cmc_claim_store,da_cos_api
+      - S2S_NAMES_WHITELIST=em_api,em_gw,ccd_gw,ccd_data,sscs,dg_tmpl_mgmt,dg_docassembly,dm-store,cmc,cmc_claim_store,adoption_cos_api
       - CASE_WORKER_ROLES=caseworker-cmc,caseworker-cmc-judge,caseworker-cmc-legaladvisor
       - DOCMOSIS_ACCESS_KEY=${DOCMOSIS_ACCESS_KEY}
       - OPEN_ID_API_BASE_URI=http://idam-api:5000/o
@@ -359,7 +359,7 @@ services:
       IDAM_TESTING_SUPPORT_ENABLED: "true"
       IDAM_USER_BASE_URI: http://idam-api:5000
       IDAM_S2S_BASE_URI: http://rpe-service-auth-provider-aat.service.core-compute-aat.internal
-      S2S_NAMES_WHITELIST: sscs,divorce,ccd,em_gw,document-management-store,ccd_gw,idam-api,fpl_case_service,xui_webapp,ccd_case_document_am_api,da_cos_api,dg_docassembly_api,ccd_case_document_am_api
+      S2S_NAMES_WHITELIST: sscs,divorce,ccd,em_gw,document-management-store,ccd_gw,idam-api,fpl_case_service,xui_webapp,ccd_case_document_am_api,adoption_cos_api,dg_docassembly_api,ccd_case_document_am_api
       ENABLE_DB_MIGRATE: "true"
     depends_on:
       - shared-database
@@ -390,7 +390,7 @@ services:
       LD_SDK_KEY: "${AM_LD_SDK_KEY}"
       ROLE_ASSIGNMENT_IDAM_KEY:
       ROLE_ASSIGNMENT_TOKEN_SECRET:
-      ROLE_ASSIGNMENT_S2S_AUTHORISED_SERVICES: ccd_gw,am_role_assignment_service,am_org_role_mapping_service,wa_task_management_api,xui_webapp,ccd_data,da_cos_api
+      ROLE_ASSIGNMENT_S2S_AUTHORISED_SERVICES: ccd_gw,am_role_assignment_service,am_org_role_mapping_service,wa_task_management_api,xui_webapp,ccd_data,adoption_cos_api
       IDAM_USER_URL: http://idam-api:5000
       IDAM_S2S_URL: http://rpe-service-auth-provider-aat.service.core-compute-aat.internal
       OPEN_ID_API_BASE_URI: http://idam-api:5000/o

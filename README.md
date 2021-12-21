@@ -1,6 +1,6 @@
 # Domestic Abuse Development Environment
 
-A docker based development environment for the da-cos-api services.
+A docker based development environment for the adoption-cos-api services.
 
 ## Requirements
 

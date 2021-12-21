@@ -9,7 +9,7 @@
         "roleCategory": "PROFESSIONAL",
         "classification": "RESTRICTED",
         "readOnly": false,
-        "attributes": { "caseType": "FL401", "jurisdiction": "DOMESTICABUSE" },
+        "attributes": { "caseType": "A58", "jurisdiction": "ADOPTION" },
         "authorisations": []
       },
       {
@@ -19,7 +19,7 @@
         "roleCategory": "PROFESSIONAL",
         "classification": "RESTRICTED",
         "readOnly": false,
-        "attributes": { "caseType": "FL401", "jurisdiction": "DOMESTICABUSE" },
+        "attributes": { "caseType": "A58", "jurisdiction": "ADOPTION" },
         "authorisations": []
       }
     ],

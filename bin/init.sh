@@ -1,18 +1,20 @@
 #!/usr/bin/env bash
 
-az keyvault secret show --vault-name da-aat -o tsv --query value --name da-local-env-config | base64 -d > .env
+#az keyvault secret show --vault-name adoption-aat -o tsv --query value --name adoption-local-env-config | base64 -d > .env
 
-if [ -f .env ]
-then
-  export $(cat .env | sed 's/#.*//g' | xargs)
-fi
+#if [ -f .env ]
+#then
+#  export $(cat .env | sed 's/#.*//g' | xargs)
+#fi
 
-API_DIR=./da-cos-api
+API_DIR=./adoption-cos-api
 
-az acr login --name hmctspublic --subscription 8999dec3-0104-4a27-94ee-6588559729d1
-az acr login --name hmctsprivate --subscription 8999dec3-0104-4a27-94ee-6588559729d1
+az acr login --name hmctspublic --subscription 1c4f0704-a29e-403d-b719-b90c34ef14c9
+az acr login --name hmctsprivate --subscription 1c4f0704-a29e-403d-b719-b90c34ef14c9
 
-[[ -d $API_DIR ]] || git clone git@github.com:hmcts/da-cos-api.git
+[[ -d $API_DIR ]] || git clone --single-branch --branch pankaj_ccd2 git@github.com:hmcts/adoption-cos-api.git
+#git clone git@github.com:hmcts/adoption-cos-api.git
+#git clone --single-branch --branch <branchname> <remote-repo>
 
 docker-compose stop
 docker-compose pull

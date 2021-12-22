@@ -86,6 +86,9 @@ services:
       IDAM_CLIENT_ID: ccd_data_store_api
       CASE_DOCUMENT_AM_URL: http://ccd-case-document-am-api:4455
       ROLE_ASSIGNMENT_URL: http://am-role-assignment-service:4096
+      ENABLE_ATTRIBUTE_BASED_ACCESS_CONTROL: "false"
+      ENABLE_PSEUDO_ROLE_ASSIGNMENTS_GENERATION: "false"
+      ENABLE_PSEUDO_ACCESS_PROFILES_GENERATION: "false"
     ports:
       - 4452:4452
       - 5005:5005

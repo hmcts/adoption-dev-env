@@ -25,11 +25,11 @@ XUI_CLIENT_ID="xuiwebapp"
 ADOPTION_CLIENT_SECRET=${OAUTH2_CLIENT_SECRET}
 XUI_CLIENT_SECRET=${OAUTH2_CLIENT_SECRET}
 
-ROLES_ARR=("ccd-import" "caseworker-adoption" "caseworker" "caseworker-adoption-courtadmin" "caseworker-adoption-systemupdate" "caseworker-adoption-superuser" "caseworker-adoption-la" "caseworker-adoption-judge" "caseworker-adoption-solicitor")
+ROLES_ARR=("ccd-import" "caseworker-adoption" "caseworker-adoption-caseworker" "caseworker-adoption-courtadmin" "caseworker-adoption-superuser" "caseworker-adoption-la" "caseworker-adoption-judge" "caseworker-adoption-solicitor")
 ROLES_STR=$(printf "\"%s\"," "${ROLES_ARR[@]}")
 ROLES="[${ROLES_STR%?}]"
 
-XUI_ROLES_ARR=("XUI-Admin" "XUI-SuperUser" "caseworker" "caseworker-adoption" "caseworker-adoption-courtadmin" "caseworker-adoption-systemupdate" "caseworker-adoption-superuser" "caseworker-adoption-la" "caseworker-adoption-judge" "caseworker-adoption-solicitor")
+XUI_ROLES_ARR=("XUI-Admin" "XUI-SuperUser" "caseworker-adoption"  "caseworker-adoption-caseworker" "caseworker-adoption-courtadmin" "caseworker-adoption-superuser" "caseworker-adoption-la" "caseworker-adoption-judge" "caseworker-adoption-solicitor")
 XUI_ROLES_STR=$(printf "\"%s\"," "${XUI_ROLES_ARR[@]}")
 XUI_ROLES="[${XUI_ROLES_STR%?}]"
 
@@ -77,10 +77,10 @@ echo "Setup xui client roles"
 curl -s -o /dev/null -XPUT "${HEADERS[@]}" ${IDAM_URI}/services/${XUI_CLIENT_ID}/roles -d "${XUI_ROLES}"
 
 echo "Creating idam users"
-./bin/idam-create-user.sh caseworker,caseworker-adoption,caseworker-adoption-courtadmin_beta,caseworker-adoption-systemupdate,caseworker-adoption-courtadmin,caseworker-adoption-bulkscan,caseworker-adoption-superuser,caseworker-adoption-courtadmin-la $IDAM_CASEWORKER_USERNAME $IDAM_CASEWORKER_PASSWORD caseworker
-./bin/idam-create-user.sh caseworker,caseworker-adoption,caseworker-adoption-courtadmin_beta $IDAM_TEST_CASEWORKER_USERNAME $IDAM_TEST_CASEWORKER_PASSWORD caseworker
-./bin/idam-create-user.sh caseworker,caseworker-adoption,caseworker-adoption-solicitor,caseworker-adoption-superuser $IDAM_TEST_SOLICITOR_USERNAME $IDAM_TEST_SOLICITOR_PASSWORD caseworker
+./bin/idam-create-user.sh caseworker-adoption, caseworker-adoption-caseworker, caseworker-adoption-courtadmin, caseworker-adoption-superuser, caseworker-adoption-la, caseworker-adoption-judge, caseworker-adoption-solicitor $IDAM_CASEWORKER_USERNAME $IDAM_CASEWORKER_PASSWORD caseworker
+./bin/idam-create-user.sh caseworker-adoption, caseworker-adoption-caseworker, caseworker-adoption-courtadmin, caseworker-adoption-superuser, caseworker-adoption-la, caseworker-adoption-judge, caseworker-adoption-solicitor $IDAM_TEST_CASEWORKER_USERNAME $IDAM_TEST_CASEWORKER_PASSWORD caseworker
+./bin/idam-create-user.sh caseworker-adoption, caseworker-adoption-caseworker, caseworker-adoption-courtadmin, caseworker-adoption-superuser, caseworker-adoption-la, caseworker-adoption-judge, caseworker-adoption-solicitor $IDAM_TEST_SOLICITOR_USERNAME $IDAM_TEST_SOLICITOR_PASSWORD caseworker
 ./bin/idam-create-user.sh ccd-import $DEFINITION_IMPORTER_USERNAME $DEFINITION_IMPORTER_PASSWORD Default
-./bin/idam-create-user.sh caseworker,caseworker-adoption,caseworker-adoption-systemupdate $IDAM_SYSTEM_UPDATE_USERNAME $IDAM_SYSTEM_UPDATE_PASSWORD caseworker
+./bin/idam-create-user.sh caseworker-adoption, caseworker-adoption-caseworker, caseworker-adoption-courtadmin, caseworker-adoption-superuser, caseworker-adoption-la, caseworker-adoption-judge, caseworker-adoption-solicitor $IDAM_SYSTEM_UPDATE_USERNAME $IDAM_SYSTEM_UPDATE_PASSWORD caseworker
 ./bin/idam-create-user.sh caseworker $CCD_SYSTEM_UPDATE_USERNAME $CCD_SYSTEM_UPDATE_PASSWORD caseworker
 echo "Idam setup complete"

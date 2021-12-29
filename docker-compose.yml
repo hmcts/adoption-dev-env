@@ -41,7 +41,7 @@ services:
       DEFINITION_STORE_DB_PASSWORD: "${DB_PASSWORD}"
       DEFINITION_STORE_DB_USE_SSL: "false"
       DEFINITION_STORE_IDAM_KEY:
-      DEFINITION_STORE_S2S_AUTHORISED_SERVICES: ccd_data,ccd_gw,ccd_admin,adoption_cos_api
+      DEFINITION_STORE_S2S_AUTHORISED_SERVICES: ccd_data,ccd_gw,ccd_admin,adoption_cos_api,adoption_web
       USER_PROFILE_HOST: http://ccd-user-profile-api:4453
       IDAM_USER_URL: http://idam-api:5000
       IDAM_S2S_URL: http://rpe-service-auth-provider-aat.service.core-compute-aat.internal
@@ -66,7 +66,7 @@ services:
       DATA_STORE_DB_PASSWORD: "${DB_PASSWORD}"
       DATA_STORE_DB_USE_SSL: "false"
       DATA_STORE_IDAM_KEY:
-      DATA_STORE_S2S_AUTHORISED_SERVICES: ccd_gw,fpl_case_service,ccd_data,ccd_ps,payment-api,xui_webapp,adoption_cos_api,ccd_case_document_am_api,am_role_assignment_service
+      DATA_STORE_S2S_AUTHORISED_SERVICES: ccd_gw,fpl_case_service,ccd_data,ccd_ps,payment-api,xui_webapp,adoption_cos_api,ccd_case_document_am_api,am_role_assignment_service,adoption_web
       CCD_S2S_AUTHORISED_SERVICES_CASE_USER_ROLES: adoption_cos_api
       CCD_DM_DOMAIN: http://dm-store:8080
       DEFINITION_STORE_HOST: http://ccd-definition-store-api:4451
@@ -86,9 +86,6 @@ services:
       IDAM_CLIENT_ID: ccd_data_store_api
       CASE_DOCUMENT_AM_URL: http://ccd-case-document-am-api:4455
       ROLE_ASSIGNMENT_URL: http://am-role-assignment-service:4096
-      ENABLE_ATTRIBUTE_BASED_ACCESS_CONTROL: "false"
-      ENABLE_PSEUDO_ROLE_ASSIGNMENTS_GENERATION: "false"
-      ENABLE_PSEUDO_ACCESS_PROFILES_GENERATION: "false"
     ports:
       - 4452:4452
       - 5005:5005
@@ -323,7 +320,7 @@ services:
       IDAM_SYSTEM_UPDATE_USERNAME: "${IDAM_SYSTEM_UPDATE_USERNAME}"
       IDAM_SYSTEM_UPDATE_PASSWORD: "${IDAM_SYSTEM_UPDATE_PASSWORD}"
     ports:
-      - 4013:4013
+      - 5045:5045
 
   doc-assembly-api:
     image: hmctspublic.azurecr.io/dg/docassembly

@@ -14,9 +14,49 @@
       },
       {
         "roleType": "CASE",
-        "roleName": "[APPLICANTSOLICITOR]",
+        "roleName": "[APPONESOLICITOR]",
         "grantType": "CHALLENGED",
         "roleCategory": "PROFESSIONAL",
+        "classification": "RESTRICTED",
+        "readOnly": false,
+        "attributes": { "caseType": "A58", "jurisdiction": "ADOPTION" },
+        "authorisations": []
+      },
+      {
+        "roleType": "CASE",
+        "roleName": "[APPTWOSOLICITOR]",
+        "grantType": "SPECIFIC",
+        "roleCategory": "PROFESSIONAL",
+        "classification": "RESTRICTED",
+        "readOnly": false,
+        "attributes": { "caseType": "A58", "jurisdiction": "ADOPTION" },
+        "authorisations": []
+      },
+      {
+        "roleType": "CASE",
+        "roleName": "[APPTWOSOLICITOR]",
+        "grantType": "CHALLENGED",
+        "roleCategory": "PROFESSIONAL",
+        "classification": "RESTRICTED",
+        "readOnly": false,
+        "attributes": { "caseType": "A58", "jurisdiction": "ADOPTION" },
+        "authorisations": []
+      },
+      {
+        "roleType": "CASE",
+        "roleName": "[APPLICANTTWO]",
+        "grantType": "SPECIFIC",
+        "roleCategory": "CITIZEN",
+        "classification": "RESTRICTED",
+        "readOnly": false,
+        "attributes": { "caseType": "A58", "jurisdiction": "ADOPTION" },
+        "authorisations": []
+      },
+      {
+        "roleType": "CASE",
+        "roleName": "[APPLICANTTWO]",
+        "grantType": "CHALLENGED",
+        "roleCategory": "CITIZEN",
         "classification": "RESTRICTED",
         "readOnly": false,
         "attributes": { "caseType": "A58", "jurisdiction": "ADOPTION" },

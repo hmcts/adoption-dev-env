@@ -1,11 +1,11 @@
 #!/usr/bin/env bash
 
-#az keyvault secret show --vault-name adoption-aat -o tsv --query value --name adoption-local-env-config | base64 -d > .env
+az keyvault secret show --vault-name adoption-aat -o tsv --query value --name adoption-local-env-config | base64 -d > .env
 
-#if [ -f .env ]
-#then
-#  export $(cat .env | sed 's/#.*//g' | xargs)
-#fi
+if [ -f .env ]
+then
+ export $(cat .env | sed 's/#.*//g' | xargs)
+fi
 
 API_DIR=./adoption-cos-api
 
@@ -14,7 +14,6 @@ az acr login --name hmctsprivate --subscription 1c4f0704-a29e-403d-b719-b90c34ef
 
 [[ -d $API_DIR ]] || git clone --single-branch --branch pankaj_ccd2 git@github.com:hmcts/adoption-cos-api.git
 #git clone git@github.com:hmcts/adoption-cos-api.git
-#git clone --single-branch --branch <branchname> <remote-repo>
 
 docker-compose stop
 docker-compose pull

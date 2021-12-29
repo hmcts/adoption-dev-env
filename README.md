@@ -31,15 +31,24 @@ brew install --cask docker
 
 Make sure that Docker has been given at least **9GB** of RAM.
 
-The init script will clone the da repositories into sub-folders, start the CCD services and import the definition file. Then environment will then shut down and be ready for use.
+The init script will clone the adoption repositories into sub-folders, start the CCD services and import the definition file. Then environment will then shut down and be ready for use.
 
 ```bash
 ./bin/init.sh
 ```
 
+Once this command finishes run:
+
+```bash
+cd adoption-web
+yarn build
+yarn start:docker
+```
+
 Once everything has started you will be able to use the logins found in the `.env` file for:
 
 * http://localhost:3000 XUI Case manager: login `IDAM_CASEWORKER_USERNAME`/`PASSWORD`
+* http://localhost:3001 adoption: login `IDAM_CITIZEN_USERNAME`/`PASSWORD`
 
 ## Usage
 

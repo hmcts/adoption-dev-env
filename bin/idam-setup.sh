@@ -11,6 +11,10 @@ REDIRECTS=("http://localhost:3000/oauth2/callback")
 REDIRECTS_STR=$(printf "\"%s\"," "${REDIRECTS[@]}")
 REDIRECT_URI="[${REDIRECTS_STR%?}]"
 
+ADOPTION_REDIRECTS=("http://localhost:3001/receiver")
+ADOPTION_REDIRECTS_STR=$(printf "\"%s\"," "${ADOPTION_REDIRECTS[@]}")
+ADOPTION_REDIRECT_URI="[${ADOPTION_REDIRECTS_STR%?}]"
+
 CCD_REDIRECTS=("http://ccd-data-store-api/oauth2redirect")
 CCD_REDIRECTS_STR=$(printf "\"%s\"," "${CCD_REDIRECTS[@]}")
 CCD_REDIRECT_URI="[${CCD_REDIRECTS_STR%?}]"
@@ -20,12 +24,13 @@ AM_REDIRECTS_STR=$(printf "\"%s\"," "${AM_REDIRECTS[@]}")
 AM_REDIRECT_URI="[${AM_REDIRECTS_STR%?}]"
 
 ADOPTION_CLIENT_ID="adoption-cos-api"
+ADOPTION_WEB_CLIENT_ID="adoption-web"
 XUI_CLIENT_ID="xuiwebapp"
 
 ADOPTION_CLIENT_SECRET=${OAUTH2_CLIENT_SECRET}
 XUI_CLIENT_SECRET=${OAUTH2_CLIENT_SECRET}
 
-ROLES_ARR=("ccd-import" "caseworker-adoption" "caseworker-adoption-caseworker" "caseworker-adoption-courtadmin" "caseworker-adoption-superuser" "caseworker-adoption-la" "caseworker-adoption-judge" "caseworker-adoption-solicitor")
+ROLES_ARR=("citizen" "ccd-import" "caseworker-adoption" "caseworker-adoption-caseworker" "caseworker-adoption-courtadmin" "caseworker-adoption-superuser" "caseworker-adoption-la" "caseworker-adoption-judge" "caseworker-adoption-solicitor")
 ROLES_STR=$(printf "\"%s\"," "${ROLES_ARR[@]}")
 ROLES="[${ROLES_STR%?}]"
 
@@ -40,6 +45,11 @@ echo "Setup adoption client"
 # Create a client
 curl -s -o /dev/null -XPOST "${HEADERS[@]}" ${IDAM_URI}/services \
  -d '{ "activationRedirectUrl": "", "allowedRoles": '"${ROLES}"', "description": "'${ADOPTION_CLIENT_ID}'", "label": "'${ADOPTION_CLIENT_ID}'", "oauth2ClientId": "'${ADOPTION_CLIENT_ID}'", "oauth2ClientSecret": "'${ADOPTION_CLIENT_SECRET}'", "oauth2RedirectUris": '${REDIRECT_URI}', "oauth2Scope": "openid profile roles", "onboardingEndpoint": "string", "onboardingRoles": '"${ROLES}"', "selfRegistrationAllowed": true}'
+
+echo "Setup adoption web client"
+# Create a client
+curl -s -o /dev/null -XPOST "${HEADERS[@]}" ${IDAM_URI}/services \
+ -d '{ "activationRedirectUrl": "", "allowedRoles": '"${ROLES}"', "description": "'${ADOPTION_WEB_CLIENT_ID}'", "label": "'${ADOPTION_WEB_CLIENT_ID}'", "oauth2ClientId": "'${ADOPTION_WEB_CLIENT_ID}'", "oauth2ClientSecret": "'${ADOPTION_CLIENT_SECRET}'", "oauth2RedirectUris": '${ADOPTION_REDIRECT_URI}', "oauth2Scope": "openid profile roles", "onboardingEndpoint": "string", "onboardingRoles": '"${ROLES}"', "selfRegistrationAllowed": true}'
 
 echo "Setup xui client"
 # Create a client
@@ -56,7 +66,7 @@ curl -s -o /dev/null -XPOST "${HEADERS[@]}" ${IDAM_URI}/services \
 
 echo "Setup adoption roles"
 # Create roles in idam
-for role in "${ROLES_ARR[@]}"; do
+for role in "${ROLES_ARR[@]}"; 
   curl -s -o /dev/null -XPOST ${IDAM_URI}/roles "${HEADERS[@]}" \
     -d '{"id": "'${role}'","name": "'${role}'","description": "'${role}'","assignableRoles": [],"conflictingRoles": []}'
 done
@@ -83,4 +93,5 @@ echo "Creating idam users"
 ./bin/idam-create-user.sh ccd-import $DEFINITION_IMPORTER_USERNAME $DEFINITION_IMPORTER_PASSWORD Default
 ./bin/idam-create-user.sh caseworker-adoption, caseworker-adoption-caseworker, caseworker-adoption-courtadmin, caseworker-adoption-superuser, caseworker-adoption-la, caseworker-adoption-judge, caseworker-adoption-solicitor $IDAM_SYSTEM_UPDATE_USERNAME $IDAM_SYSTEM_UPDATE_PASSWORD caseworker
 ./bin/idam-create-user.sh caseworker $CCD_SYSTEM_UPDATE_USERNAME $CCD_SYSTEM_UPDATE_PASSWORD caseworker
+./bin/idam-create-user.sh citizen $IDAM_CITIZEN_USERNAME $IDAM_CITIZEN_PASSWORD citizens
 echo "Idam setup complete"

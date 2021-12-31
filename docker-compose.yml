@@ -320,7 +320,7 @@ services:
       IDAM_SYSTEM_UPDATE_USERNAME: "${IDAM_SYSTEM_UPDATE_USERNAME}"
       IDAM_SYSTEM_UPDATE_PASSWORD: "${IDAM_SYSTEM_UPDATE_PASSWORD}"
     ports:
-      - 5045:5045
+      - 4550:4550
 
   doc-assembly-api:
     image: hmctspublic.azurecr.io/dg/docassembly
@@ -359,7 +359,7 @@ services:
       IDAM_TESTING_SUPPORT_ENABLED: "true"
       IDAM_USER_BASE_URI: http://idam-api:5000
       IDAM_S2S_BASE_URI: http://rpe-service-auth-provider-aat.service.core-compute-aat.internal
-      S2S_NAMES_WHITELIST: sscs,divorce,ccd,em_gw,document-management-store,ccd_gw,idam-api,fpl_case_service,xui_webapp,ccd_case_document_am_api,adoption_cos_api,dg_docassembly_api,ccd_case_document_am_api
+      S2S_NAMES_WHITELIST: sscs,ccd,em_gw,document-management-store,ccd_gw,idam-api,fpl_case_service,xui_webapp,ccd_case_document_am_api,adoption_cos_api,dg_docassembly_api,ccd_case_document_am_api
       ENABLE_DB_MIGRATE: "true"
     depends_on:
       - shared-database

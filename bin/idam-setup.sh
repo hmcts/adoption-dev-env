@@ -66,7 +66,7 @@ curl -s -o /dev/null -XPOST "${HEADERS[@]}" ${IDAM_URI}/services \
 
 echo "Setup adoption roles"
 # Create roles in idam
-for role in "${ROLES_ARR[@]}"; 
+for role in "${ROLES_ARR[@]}"; do
   curl -s -o /dev/null -XPOST ${IDAM_URI}/roles "${HEADERS[@]}" \
     -d '{"id": "'${role}'","name": "'${role}'","description": "'${role}'","assignableRoles": [],"conflictingRoles": []}'
 done

@@ -17,7 +17,7 @@ The following packages are required:
 
 Note that a VPN is required as this environment uses multiple services in the AAT environment.
 
-Also, you will need access to azure key vault.
+Also, you will need access to azure key vault. Please contact a member of No Fault Divorce team to gain access.
 
 ## Set up
 

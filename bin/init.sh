@@ -12,8 +12,7 @@ API_DIR=./adoption-cos-api
 az acr login --name hmctspublic --subscription 1c4f0704-a29e-403d-b719-b90c34ef14c9
 az acr login --name hmctsprivate --subscription 1c4f0704-a29e-403d-b719-b90c34ef14c9
 
-[[ -d $API_DIR ]] || git clone --single-branch --branch pankaj_ccd2 git@github.com:hmcts/adoption-cos-api.git
-#git clone git@github.com:hmcts/adoption-cos-api.git
+[[ -d $API_DIR ]] || git clone git@github.com:hmcts/adoption-cos-api.git
 
 docker-compose stop
 docker-compose pull

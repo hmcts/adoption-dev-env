@@ -82,5 +82,5 @@ Import changes to the CCD definition file by running:
 ```bash
 ./bin/ccd-import-definition.sh
 ```
-Note: Plese have local docker configuration as per below image:
+Note: Please have local docker configuration as per below image:
 <img width="1037" alt="docker" src="https://user-images.githubusercontent.com/94961980/151612154-8d20d3ef-6fb6-4088-ab68-c1c12cda0cb8.png">
